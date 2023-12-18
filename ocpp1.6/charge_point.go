@@ -103,8 +103,8 @@ func (cp *chargePoint) Heartbeat(props ...func(request *core.HeartbeatRequest)) 
 	}
 }
 
-func (cp *chargePoint) MeterValues(connectorId int, meterValues []types.MeterValue, props ...func(request *core.MeterValuesRequest)) (*core.MeterValuesConfirmation, error) {
-	request := core.NewMeterValuesRequest(connectorId, meterValues)
+func (cp *chargePoint) MeterValues(connectorId int, meterValues []types.MeterValue, transactionId *int, props ...func(request *core.MeterValuesRequest)) (*core.MeterValuesConfirmation, error) {
+	request := core.NewMeterValuesRequest(connectorId, meterValues, transactionId)
 	for _, fn := range props {
 		fn(request)
 	}

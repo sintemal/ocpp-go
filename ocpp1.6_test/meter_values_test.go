@@ -67,7 +67,7 @@ func (suite *OcppV16TestSuite) TestMeterValuesE2EMocked() {
 	suite.centralSystem.Start(8887, "somePath")
 	err := suite.chargePoint.Start(wsUrl)
 	require.Nil(t, err)
-	confirmation, err := suite.chargePoint.MeterValues(connectorId, meterValues)
+	confirmation, err := suite.chargePoint.MeterValues(connectorId, meterValues, nil)
 	require.Nil(t, err)
 	require.NotNil(t, confirmation)
 }
@@ -79,7 +79,7 @@ func (suite *OcppV16TestSuite) TestMeterValuesInvalidEndpoint() {
 	mockUnit := types.UnitOfMeasureKW
 	timestamp := types.DateTime{Time: time.Now()}
 	meterValues := []types.MeterValue{{Timestamp: types.NewDateTime(time.Now()), SampledValue: []types.SampledValue{{Value: mockValue, Unit: mockUnit}}}}
-	meterValuesRequest := core.NewMeterValuesRequest(connectorId, meterValues)
+	meterValuesRequest := core.NewMeterValuesRequest(connectorId, meterValues, nil)
 	requestJson := fmt.Sprintf(`[2,"%v","%v",{"connectorId":%v,"meterValue":[{"timestamp":"%v","sampledValue":[{"value":"%v","unit":"%v"}]}]}]`, messageId, core.MeterValuesFeatureName, connectorId, timestamp.FormatTimestamp(), mockValue, mockUnit)
 	testUnsupportedRequestFromCentralSystem(suite, meterValuesRequest, requestJson, messageId)
 }

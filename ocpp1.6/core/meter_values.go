@@ -67,8 +67,8 @@ func (c MeterValuesConfirmation) GetFeatureName() string {
 }
 
 // Creates a new MeterValuesRequest, containing all required fields. Optional fields may be set afterwards.
-func NewMeterValuesRequest(connectorId int, meterValues []types.MeterValue) *MeterValuesRequest {
-	return &MeterValuesRequest{ConnectorId: connectorId, MeterValue: meterValues}
+func NewMeterValuesRequest(connectorId int, meterValues []types.MeterValue, transactionId *int) *MeterValuesRequest {
+	return &MeterValuesRequest{ConnectorId: connectorId, MeterValue: meterValues, TransactionId: transactionId}
 }
 
 // Creates a new MeterValuesConfirmation, which doesn't contain any required or optional fields.

@@ -54,8 +54,8 @@ type ChargePoint interface {
 	DataTransfer(vendorId string, props ...func(request *core.DataTransferRequest)) (*core.DataTransferConfirmation, error)
 	// Notifies the central system that the charge point is still online. The central system's response is used for time synchronization purposes. It is recommended to perform this operation once every 24 hours.
 	Heartbeat(props ...func(request *core.HeartbeatRequest)) (*core.HeartbeatConfirmation, error)
-	// Sends a batch of collected meter values to the central system, for billing and analysis. May be done periodically during ongoing transactions.
-	MeterValues(connectorId int, meterValues []types.MeterValue, props ...func(request *core.MeterValuesRequest)) (*core.MeterValuesConfirmation, error)
+	// Sends a batch of collected meter values to the central system, for billing and analysis. May be done periodically during ongoing transactions. transactionId is optional.
+	MeterValues(connectorId int, meterValues []types.MeterValue, transactionId *int, props ...func(request *core.MeterValuesRequest)) (*core.MeterValuesConfirmation, error)
 	// Requests to start a transaction for a specific connector. The central system will verify the client's IdTag and either accept or reject the transaction.
 	StartTransaction(connectorId int, idTag string, meterStart int, timestamp *types.DateTime, props ...func(request *core.StartTransactionRequest)) (*core.StartTransactionConfirmation, error)
 	// Stops an ongoing transaction. Typically a batch of meter values is passed along with this message.
